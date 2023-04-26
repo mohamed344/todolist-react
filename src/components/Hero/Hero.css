@@ -1,0 +1,30 @@
+.hero{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 80vh;
+}
+.info{
+    background-color: var(--color-darkest);
+    border-radius: var(--border-radius-primary);
+    padding: var(--padding-primary);
+    margin-top: var(--margin-primary);
+}
+.todoinpt{
+    padding: 5px 20px;
+    background-color: var(--color-dark);
+    border: 2px solid #33e878;
+    border-radius: 15px 0  0  15px;
+}
+.todobtn{
+    background-color: #33e878;
+    margin: 0 5px;
+    padding: 7px 20px;
+    border: none;
+    border-radius: 0 15px 15px 0;
+    color: var(--color-dark);
+    cursor: pointer;
+}
+.todobtn:hover{
+    background-color: #49d77f;
+}

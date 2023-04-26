@@ -1,0 +1,12 @@
+.Header{
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-light);
+    padding: 5px;
+}
+.Header h4{
+    margin: 0;
+}
+.links a{
+    margin-left: 10px;
+}
