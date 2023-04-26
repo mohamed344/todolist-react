@@ -9,11 +9,11 @@ const Navbar = () => {
       </div>
       <div className="links">
         <a href="/">Home</a>
-        <a href="/">Trash</a>
+        <a href="/">Completed</a>
       </div>
-      <div className="buttons">
-        <button>Login</button>
-        <button>Log Out</button>
+      <div className="buttonsNav">
+        <button className="login">Log In</button>
+        <button className="signin">Sign Up</button>
       </div>
     </div>
   );

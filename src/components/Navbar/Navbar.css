@@ -10,3 +10,11 @@
 .links a{
     margin-left: 10px;
 }
+.login{
+    border: none;
+    margin-right: 5px;
+}
+.signin{
+
+    border: none;
+}

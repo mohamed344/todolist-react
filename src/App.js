@@ -1,11 +1,15 @@
 import './App.css';
-import { Navbar, Hero } from './components/index';
+
+import { Navbar, Container, AddItem ,ListItem } from './components/index';
 
 function App() {
   return (
     <>
       <Navbar />
-      <Hero />
+      <Container>
+        <AddItem />
+        <ListItem />
+      </Container>
     </>
   );
 }

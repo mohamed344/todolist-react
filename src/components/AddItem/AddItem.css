@@ -1,20 +1,17 @@
-.hero{
+
+.additem{
     display: flex;
     justify-content: center;
-    width: 100vw;
-    height: 80vh;
-}
-.info{
-    background-color: var(--color-darkest);
-    border-radius: var(--border-radius-primary);
-    padding: var(--padding-primary);
-    margin-top: var(--margin-primary);
+    margin-bottom: 25px;
 }
 .todoinpt{
-    padding: 5px 20px;
+    padding: 8px 30px;
     background-color: var(--color-dark);
     border: 2px solid #33e878;
     border-radius: 15px 0  0  15px;
+}
+.todoinpt:focus{
+    outline: none;
 }
 .todobtn{
     background-color: #33e878;
@@ -24,7 +21,9 @@
     border-radius: 0 15px 15px 0;
     color: var(--color-dark);
     cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
 }
 .todobtn:hover{
-    background-color: #49d77f;
+    background-color: #35af64;
 }
