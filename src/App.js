@@ -1,15 +1,19 @@
 import './App.css';
-
-import { Navbar, Container, AddItem ,ListItem } from './components/index';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { Navbar, Container, Home, Completed } from './components/index';
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Container>
-        <AddItem />
-        <ListItem />
+     <BrowserRouter>
+     <Navbar />
+     <Container>
+      <Routes>
+        <Route exact path="/" element={<Home />}/>
+        <Route exact path="/completed" element={<Completed />}/>
+      </Routes>
       </Container>
+      </BrowserRouter>
     </>
   );
 }

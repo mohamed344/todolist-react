@@ -7,14 +7,20 @@
 .Header h4{
     margin: 0;
 }
-.links a{
+.links button{
+    background-color: var(--color-dark);
     margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    color: rgba(138, 139, 140, 0.818);
+}
+.links button:focus{
+    color: #fff;
 }
 .login{
     border: none;
     margin-right: 5px;
 }
 .signin{
-
     border: none;
 }

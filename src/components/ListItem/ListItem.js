@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "./ListItem.css";
-import axios from "axios";
+// import axios from "axios";
 
-const ListItem = () => {
-  const [todos, setTodos] = useState([]);
+const ListItem = ({todos, setTodos}) => {
 
-  useEffect(() => {
-    const getTodos = async () => {
-      axios
-        .get("https://jsonplaceholder.typicode.com/todos")
-        .then((response) => {
-          setTodos(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    getTodos();
-  }, []);
+  // useEffect(() => {
+  //   const getTodos = async () => {
+  //     axios
+  //       .get("https://jsonplaceholder.typicode.com/todos")
+  //       .then((response) => {
+  //         setTodos(response.data);
+  //         console.log(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
+  //   getTodos();
+  // }, []);
+
+  const handleRemove = (id) => {
+    setTodos((currItem) => currItem.filter((todo) => todo.id !== id));
+  }
 
   return (
     <div>
@@ -27,9 +30,12 @@ const ListItem = () => {
           return (
             <>
               <li className="list" key={todo.id}>
-                <p>{todo.title}</p>
+                <p>
+                  {todo.id} - {todo.title.substring(0, 52)}
+                </p>
                 <div className="buttons">
-                  <button>Remove</button>
+                  <button className="complete">Complete</button>
+                  <button className="remove" onClick={() => handleRemove(todo.id)}>Remove</button>
                 </div>
               </li>
             </>

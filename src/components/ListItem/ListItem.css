@@ -18,14 +18,32 @@ p{
 .buttons{
     margin: 15px 15px;
 }
-.buttons button{
-    background-color: #d9534f;
+
+.complete{
+    background-color: #02943a;
     color: #fff;
     border: none;
-    padding: 5px 20px;
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
 }
-.buttons button:hover{
+
+.complete:hover{
+    background-color: #35af64;
+}
+
+.remove{
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+.remove:hover{
     background-color: rgb(235, 45, 45);
+}
+.check{
+
 }

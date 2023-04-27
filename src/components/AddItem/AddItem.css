@@ -7,19 +7,19 @@
 .todoinpt{
     padding: 8px 30px;
     background-color: var(--color-dark);
-    border: 2px solid #33e878;
+    border: 2px solid #02943a;
     border-radius: 15px 0  0  15px;
 }
 .todoinpt:focus{
     outline: none;
 }
 .todobtn{
-    background-color: #33e878;
+    background-color: #02943a;
     margin: 0 5px;
     padding: 7px 20px;
     border: none;
     border-radius: 0 15px 15px 0;
-    color: var(--color-dark);
+    color: var(--color-light);
     cursor: pointer;
     font-size: 15px;
     font-weight: 700;

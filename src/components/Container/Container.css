@@ -1,9 +1,9 @@
 .hero{
-    width: 50vw;
+    width: 60vw;
     height: auto;
 }
 .info{
- 
+    width: 100vh;
     background-color: var(--color-darkest);
     border-radius: var(--border-radius-primary);
     padding: calc(var(--distance-primary) / 2) var(--padding-primary);
