@@ -6,8 +6,10 @@ const Completed = () => {
   const [completed, setCompleted] = useState([]);
 
   const handleRemove = (id) => {
-    setCompleted((currItem) => currItem.filter((task) => task.id !== id));
+    setCompleted((currItem) => currItem.filter((todo) => todo.id !== id));
   }
+
+
 
   return (
     <div>
@@ -21,7 +23,6 @@ const Completed = () => {
                   {task.id} - {task.title.substring(0, 52)}
                 </p>
                 <div className="buttons">
-                  <button className="complete">Complete</button>
                   <button
                     className="remove"
                     onClick={() => handleRemove(task.id)}
