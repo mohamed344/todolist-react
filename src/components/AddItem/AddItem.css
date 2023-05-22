@@ -5,6 +5,7 @@
     margin-bottom: 25px;
 }
 .todoinpt{
+    color: #fff;
     padding: 8px 30px;
     background-color: var(--color-dark);
     border: 2px solid #02943a;

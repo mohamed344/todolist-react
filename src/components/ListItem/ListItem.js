@@ -14,7 +14,7 @@ const ListItem = ({todos, setTodos}) => {
 
   const getTodos = async () => {
     try{
-      const response = await axios.get('http://localhost:5000/api/todos')
+      const response = await axios.get('http://localhost:5000/api/tasks')
         setTodos(response.data);
     }catch(error) {
         console.log(error);
@@ -28,7 +28,7 @@ const ListItem = ({todos, setTodos}) => {
 
   const removeTodo = async (id) => {
   try {
-    await axios.delete(`http://localhost:5000/api/todos/delete/${id}`);
+    await axios.delete(`http://localhost:5000/api/tasks/delete/${id}`);
     setTodos(todos.filter((todo) => todo._id !== id));
   } catch (error) {
     console.error('Error removing todo:', error);
