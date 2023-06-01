@@ -1,26 +1,54 @@
 .Header{
     display: flex;
     justify-content: center;
+    justify-content: space-between;
     color: var(--color-light);
     padding: 5px;
 }
+
 .Header h4{
     margin: 0;
     font-size: 25px;
 }
+
 .links button{
     background-color: var(--color-dark);
     border: none;
     cursor: pointer;
     color: rgba(138, 139, 140, 0.818);
 }
+
 .links button:focus{
     color: #fff;
 }
+
+.auth{
+    padding-right: 60px;
+}
+
 .login{
     border: none;
-    margin-right: 5px;
+    margin-right: 15px;
+    background-color: #02943a;
+    padding: 5px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
 }
-.signin{
-    border: none;
+
+.login:hover{
+    background-color: #35af64;
 }
+
+.register{
+    border: solid 1px #02943a;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.register:hover{
+    background-color: #02943a;
+}
+

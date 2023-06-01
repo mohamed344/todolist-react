@@ -11,7 +11,7 @@ const ListItem = ({todos, setTodos, setInput}) => {
 
   useEffect(() => {
     getTodos();
-  },[todos]);
+  },[]);
 
   const getTodos = async () => {
     try{
@@ -22,10 +22,11 @@ const ListItem = ({todos, setTodos, setInput}) => {
       };
   };
 
-  const editTask = async(id) => {
+     const editTask = async(id) => {
+      const taskId = id;
     try{
-      const response = await API.get(`/api/tasks/edit/${id}`);
-      console.log(response.data); 
+      const response = await API.get(`/api/tasks/edit/${taskId}`);
+      console.log(response.data._id);
       setInput(response.data.title);
     }catch(error){
       console.log(error);
@@ -45,7 +46,7 @@ const toggleComplete = async (id) => {
     try{
       const response = await API.get(`/api/tasks/show/${id}`, {completed: !completed});
       console.log(response.data.completed);
-      setCompleted(response.data.completed); 
+      setCompleted(response.data.completed);
     }catch (error){
       console.log(error);
     }
