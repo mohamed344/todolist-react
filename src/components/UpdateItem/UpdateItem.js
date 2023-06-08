@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './UpdateItem.css'
 import API from '../../api'
 
 const UpdateItem = ({taskId}) => {
-  const [taskData, setTaskData] = useState({
-    title: ''
-  });
 
-  useEffect(() => {
-    // Fetch the task data from the API when the component mounts
-    API.get(`/api/tasks/edit/${taskId}`)
-      .then(response => {
-        // Set the retrieved task data in the state
-        setTaskData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching task data:', error);
-      });
-  }, [taskId]);
+  const [taskData, setTaskData] = useState({
+    title: '',
+    completed: false
+   });
 
   const handleInputChange = e => {
     setTaskData({ ...taskData, [e.target.title]: e.target.value });

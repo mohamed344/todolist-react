@@ -1,7 +1,6 @@
 .Header{
     display: flex;
     justify-content: center;
-    justify-content: space-between;
     color: var(--color-light);
     padding: 5px;
 }
@@ -22,33 +21,5 @@
     color: #fff;
 }
 
-.auth{
-    padding-right: 60px;
-}
 
-.login{
-    border: none;
-    margin-right: 15px;
-    background-color: #02943a;
-    padding: 5px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    color: #fff;
-}
-
-.login:hover{
-    background-color: #35af64;
-}
-
-.register{
-    border: solid 1px #02943a;
-    padding: 5px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    color: #fff;
-}
-
-.register:hover{
-    background-color: #02943a;
-}
 

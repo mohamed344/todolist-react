@@ -1,13 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState} from "react";
+import React, { useEffect} from "react";
 import "./ListItem.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import API from "../../api";
+import {UpdateItem} from "../index";
 
-const ListItem = ({todos, setTodos, setInput}) => {
-
-  const [completed, setCompleted] = useState(false);
+const ListItem = ({todos, setTodos}) => {
 
   useEffect(() => {
     getTodos();
@@ -16,21 +15,23 @@ const ListItem = ({todos, setTodos, setInput}) => {
   const getTodos = async () => {
     try{
       const response = await API.get('/api/tasks')
+        console.log(response.data);
         setTodos(response.data);
     }catch(error) {
         console.log(error);
       };
   };
 
-     const editTask = async(id) => {
-      const taskId = id;
-    try{
-      const response = await API.get(`/api/tasks/edit/${taskId}`);
-      console.log(response.data._id);
-      setInput(response.data.title);
-    }catch(error){
-      console.log(error);
-    }
+    const updateTask = async(id) => {
+        const taskId = id;
+        try{
+        const response = await API.put(`/api/tasks/update/${taskId}`);
+        console.log(response.data);
+        setTodos(response.data.title);
+        <UpdateItem taskId={taskId} />
+        }catch(error){
+        console.log(error);
+        }
   }
 
   const removeTodo = async (id) => {
@@ -42,14 +43,15 @@ const ListItem = ({todos, setTodos, setInput}) => {
   }
 };
 
-const toggleComplete = async (id) => {
-    try{
-      const response = await API.get(`/api/tasks/show/${id}`, {completed: !completed});
-      console.log(response.data.completed);
-      setCompleted(response.data.completed);
-    }catch (error){
-      console.log(error);
-    }
+const toggleComplete = (id) => {
+      const taskId = id;
+      API.patch(`/api/tasks/edit/${taskId}`, { completed: true })
+      .then(response => {
+        setTodos(response.data)
+      })
+      .catch(error => {
+        console.log(error);
+      });
 };
 
   return (
@@ -68,7 +70,7 @@ const toggleComplete = async (id) => {
                   {
                     todo.completed ? null : (
                   <span>
-                    <FontAwesomeIcon icon={faPen} onClick={() => { editTask(todo._id)}} />
+                    <FontAwesomeIcon icon={faPen} onClick={() => { updateTask(todo._id)}} />
                   </span>
                     )
                   }

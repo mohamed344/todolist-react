@@ -1,15 +1,18 @@
 import React from 'react'
-import './Container.css'
+import { Stack } from '@mui/material';
 
 
 const Container = (props) => {
 
   return (
-    <div className='hero'>
-        <div className='info'>
-          {props.children}
-        </div>
-    </div>
+    <Stack sx={{
+        width: '100vh',
+        backgroundColor: 'var(--color-darkest)',
+        borderRadius: 'var(--border-radius-primary)',
+        padding: 'calc(var(--distance-primary) / 2) var(--padding-primary)'
+    }}>
+        {props.children}
+    </Stack>
   )
 }
 
