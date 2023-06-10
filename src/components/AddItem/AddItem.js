@@ -7,7 +7,7 @@
 
     const handleSubmit = async () => {
         try {
-        const response = await API.post('/api/users/register', { title: input });
+        const response = await API.post('/api/tasks/create', { title: input });
         console.log(response.data);
         setInput('');
         } catch (error) {
@@ -73,9 +73,9 @@
                     width: '30%',
                     backgroundColor: '#02943a',
                     '&:hover': {
-                        backgroundColor: '#35af64', // Hover background color
+                        backgroundColor: '#35af64',
                     },
-                }}>Add a task</Button>
+                }} onClick={handleSubmit} >Add a task</Button>
             </Stack>
         </>
         )

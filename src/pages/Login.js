@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Stack, Button, TextField, InputLabel } from "@mui/material";
 import API from "../api";
 
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const handleLogin = async () => {
-        try {
-          const response = await API.post('/api/users/login', {
-            username: '',
-            password: ''
-          });
-          // Process the response, e.g., save authentication token, redirect to dashboard, etc.
-          console.log(response.data);
-        } catch (error) {
-          // Handle error, e.g., display error message, clear form fields, etc.
-          console.error(error);
-        }
-      };
+  const handleLogin = async () => {
+    try {
+      const response = await API.post("/api/users/login", { username, password });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
   return (
     <Stack spacing={2}>
@@ -34,11 +39,6 @@ function Login() {
             fontSize: "16px",
             width: "70%",
           },
-          classes: {
-            root: "success-root",
-            focused: "success-focused",
-            notchedOutline: "success-notchedOutline",
-          },
         }}
         InputLabelProps={{
           style: {
@@ -46,6 +46,8 @@ function Login() {
             fontSize: "16px",
           },
         }}
+        value={username}
+        onChange={handleUsernameChange}
       />
       <InputLabel
         htmlFor="outlined-adornment-password"
@@ -57,17 +59,12 @@ function Login() {
         id="standard-adornment-password"
         label="Enter your password"
         color="success"
-        type={"password"}
+        type="password"
         InputProps={{
           style: {
             color: "#fff",
             fontSize: "16px",
             width: "70%",
-          },
-          classes: {
-            root: "success-root",
-            focused: "success-focused",
-            notchedOutline: "success-notchedOutline",
           },
         }}
         InputLabelProps={{
@@ -76,8 +73,15 @@ function Login() {
             fontSize: "16px",
           },
         }}
+        value={password}
+        onChange={handlePasswordChange}
       />
-      <Button variant="contained" color="success" sx={{ width: "70%" }} onClick={handleLogin}>
+      <Button
+        variant="contained"
+        color="success"
+        sx={{ width: "70%" }}
+        onClick={handleLogin}
+      >
         Log In
       </Button>
     </Stack>
