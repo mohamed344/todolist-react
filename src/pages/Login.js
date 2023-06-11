@@ -3,25 +3,24 @@ import { Stack, Button, TextField, InputLabel } from "@mui/material";
 import API from "../api";
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+  });
 
-  const handleLogin = async () => {
+  const LoginForm  = async (e) => {
+        e.preventDefault()
     try {
-      const response = await API.post("/api/users/login", { username, password });
-      console.log(response.data);
+      const response = await API.post("/api/users/login", formData);
+        console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: [e.target.value]})
+  }
 
   return (
     <Stack spacing={2}>
@@ -29,6 +28,7 @@ function Login() {
         Email
       </InputLabel>
       <TextField
+        name="email"
         id="outlined-basic"
         label="Enter your email"
         color="success"
@@ -37,7 +37,6 @@ function Login() {
           style: {
             color: "#fff",
             fontSize: "16px",
-            width: "70%",
           },
         }}
         InputLabelProps={{
@@ -46,9 +45,9 @@ function Login() {
             fontSize: "16px",
           },
         }}
-        value={username}
-        onChange={handleUsernameChange}
-      />
+        value={formData.email}
+        onChange={handleChange}
+        />
       <InputLabel
         htmlFor="outlined-adornment-password"
         sx={{ color: "#DAD9D9" }}
@@ -64,7 +63,6 @@ function Login() {
           style: {
             color: "#fff",
             fontSize: "16px",
-            width: "70%",
           },
         }}
         InputLabelProps={{
@@ -73,14 +71,13 @@ function Login() {
             fontSize: "16px",
           },
         }}
-        value={password}
-        onChange={handlePasswordChange}
+        value={formData.password}
+        onChange={handleChange}
       />
       <Button
         variant="contained"
         color="success"
-        sx={{ width: "70%" }}
-        onClick={handleLogin}
+        onClick={LoginForm}
       >
         Log In
       </Button>

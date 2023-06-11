@@ -8,8 +8,8 @@ const Home = () => {
 
   return (
     <div>
-      <AddItem todos={todos} setTodos={setTodos} input={input} setInput={setInput} />
-      <ListItem todos={todos} setTodos={setTodos} />
+        <AddItem todos={todos} setTodos={setTodos} input={input} setInput={setInput} />
+        <ListItem todos={todos} setTodos={setTodos} />
     </div>
   );
 };

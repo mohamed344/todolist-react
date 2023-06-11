@@ -50,8 +50,8 @@
                     }}
                     InputProps={{
                         style: {
-                        color: '#fff',
-                        fontSize: '16px',
+                            color: '#fff',
+                            fontSize: '16px',
                         },
                         classes: {
                             root: 'success-root',
@@ -61,8 +61,8 @@
                     }}
                     InputLabelProps={{
                         style: {
-                        color: '#02943a',
-                        fontSize: '16px',
+                            color: "#DAD9D9",
+                            fontSize: '16px',
                         },
                     }}
                 />
@@ -74,6 +74,8 @@
                     backgroundColor: '#02943a',
                     '&:hover': {
                         backgroundColor: '#35af64',
+                        letterSpacing: '2px',
+                        transition: '0.5s',
                     },
                 }} onClick={handleSubmit} >Add a task</Button>
             </Stack>
