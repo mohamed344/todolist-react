@@ -1,56 +1,57 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Stack, Button, TextField, InputLabel } from "@mui/material";
 import API from "../api";
 
 function Login() {
+  const navigate  = useNavigate();
+
   const [formData, setFormData] = useState({
-        email: "",
-        password: ""
+    email: "",
+    password: ""
   });
 
-    const [errors, setErrors] = useState({
-        email: "",
-        password: ""
-    });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: ""
+  });
 
   const validateForm = () => {
-        const {email, password } = formData;
-        const errors = {};
+    const { email, password } = formData;
+    const errors = {};
 
-        if(!email){
-            errors.email = "Email is required";
-        }
-        else if(errors.email !== email){
-            errors.email = "Email is invalid";
-        }
+    if (!email) {
+      errors.email = "Email is required";
+    }
 
-        if(!password){
-            errors.password = "Password is required";
-        }
-        else if(errors.password !== password){
-            errors.password = "Password is invalid";
-        }
 
-        setErrors(errors);
-        return Object.keys(errors).length === 0;
-  }
+    if (!password) {
+      errors.password = "Password is required";
+    } 
 
-  const LoginForm  = async (e) => {
-        e.preventDefault()
-        if(validateForm()) {
-            try {
-                const response = await API.post("/api/users/login", formData);
-                console.log(response.data);
-            }catch (error) {
-                console.error(error);
-            }
-        }
-    };
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const LoginForm = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const response = await API.post("/api/users/login", formData);
+        console.log(response.data);
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        navigate("/tasks");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: [e.target.value]});
-        setErrors({ ...errors, [e.target.name]: "" });
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
+  };
 
   return (
     <Stack spacing={2}>
@@ -64,22 +65,22 @@ function Login() {
         color="success"
         variant="outlined"
         InputProps={{
-            style: {
-                color: "#fff",
-                fontSize: "16px",
-            },
+          style: {
+            color: "#fff",
+            fontSize: "16px"
+          }
         }}
         InputLabelProps={{
           style: {
             color: "#DAD9D9",
-            fontSize: "16px",
-          },
+            fontSize: "16px"
+          }
         }}
         value={formData.email}
         onChange={handleChange}
         error={!!errors.email}
         helperText={errors.email}
-        />
+      />
       <InputLabel
         htmlFor="outlined-adornment-password"
         sx={{ color: "#DAD9D9" }}
@@ -95,25 +96,21 @@ function Login() {
         InputProps={{
           style: {
             color: "#fff",
-            fontSize: "16px",
-          },
+            fontSize: "16px"
+          }
         }}
         InputLabelProps={{
           style: {
             color: "#DAD9D9",
-            fontSize: "16px",
-          },
+            fontSize: "16px"
+          }
         }}
         value={formData.password}
         onChange={handleChange}
         error={!!errors.password}
         helperText={errors.password}
       />
-      <Button
-        variant="contained"
-        color="success"
-        onClick={LoginForm}
-      >
+      <Button variant="contained" color="success" onClick={LoginForm}>
         Log In
       </Button>
     </Stack>
