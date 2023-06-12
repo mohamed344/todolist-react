@@ -8,22 +8,47 @@ function Register() {
         email: "",
         password: ""
     })
-    // const [username, setUsername] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({
+        username: "",
+        email: "",
+        password: ""
+    });
+
+    const validateForm = () => {
+        const {username, email, password } = formData;
+        const errors = {};
+        if(!username){
+            errors.username = "username is required";
+        }
+
+        if(!email){
+            errors.email = "Email is required";
+        }else if(!/\S+@\S+\.\S+/.test(email)){
+            errors.email = "Email is invalid";
+        }
+        if(!password){
+            errors.password = "Password is required";
+        }
+
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
+    }
 
     const RegisterForm = async (e) => {
         e.preventDefault();
-        try {
-            const response = await API.post("/api/users/register", formData);
-              console.log(response.data);
-        }catch (error) {
-            console.error(error);
+        if(validateForm()) {
+            try {
+                const response = await API.post("/api/users/register", formData);
+                console.log(response.data);
+            }catch (error) {
+                console.error(error);
+            }
         }
     }
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
+        setFormData({ ...formData, [e.target.name]: [e.target.value]});
+        setErrors({ ...errors, [e.target.name]: "" });
     }
 
     return (
@@ -51,6 +76,8 @@ function Register() {
             }}
             value={formData.username}
             onChange={handleChange}
+            error={!!errors.username}
+            helperText={errors.username}
             />
             <InputLabel htmlFor="outlined-adornment-email" sx={{ color: "#DAD9D9" }}>
             Email
@@ -76,6 +103,8 @@ function Register() {
             }}
             value={formData.email}
             onChange={handleChange}
+            error={!!errors.email}
+            helperText={errors.email}
             />
         <InputLabel
             htmlFor="outlined-adornment-password"
@@ -103,6 +132,8 @@ function Register() {
             }}
             value={formData.password}
             onChange={handleChange}
+            error={!!errors.password}
+            helperText={errors.password}
         />
         <Button
             type='submit'
