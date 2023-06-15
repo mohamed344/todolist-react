@@ -7,8 +7,8 @@ function Login() {
   const navigate  = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: ""
+    email: "mohamed@gmail.com",
+    password: "12345678"
   });
 
   const [errors, setErrors] = useState({
@@ -27,13 +27,13 @@ function Login() {
 
     if (!password) {
       errors.password = "Password is required";
-    } 
+    }
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  const LoginForm = async (e) => {
+const LoginForm = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       try {

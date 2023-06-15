@@ -7,7 +7,7 @@
 
     const handleSubmit = async () => {
         try {
-        const response = await API.post('/api/tasks/create', { title: input });
+        const response = await API.post('/api/tasks/create', {title: input});
         console.log(response.data);
         setInput('');
         } catch (error) {
@@ -36,6 +36,7 @@
         <>
             <Stack spacing={2} direction={'row'}>
                 <TextField
+                    value={input}
                     id="outlined-basic"
                     label="Enter your task"
                     color='success'
