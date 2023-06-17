@@ -3,36 +3,21 @@
     import API from '../../api'
     import {Button,TextField, Stack} from '@mui/material'
 
-    const AddItem = ({input, setInput}) => {
+const AddItem = ({input, setInput}) => {
 
-    const handleSubmit = async () => {
-        try {
-        const response = await API.post('/api/tasks/create', {title: input});
-        console.log(response.data);
-        setInput('');
-        } catch (error) {
-        console.error(error);
-        }
+    const handleSubmit = () => {
+        API.post('/api/tasks/create', {title: input}).then((response) => {
+            console.log(response.data);
+            setInput('');
+        })
     };
-
-    // const updateTask = async(id) => {
-    //   try{
-    //     const response = await API.put(`/api/tasks/update/${id}`, { title: input });
-    //     console.log(response.data); 
-    //     setInput(response.data.title);
-    //       setTodos((prev) => [...prev, input]);
-    //       console.log('The task has been updated');
-    //   }catch(error){
-    //     console.log(error);
-    //   }
-    // }
-
     const handleKeypress = (e) => {
         if(e.key === 'Enter'){
             handleSubmit();
         }
     }
-        return (
+
+    return (
         <>
             <Stack spacing={2} direction={'row'}>
                 <TextField
@@ -67,8 +52,6 @@
                         },
                     }}
                 />
-                {/* <input type='text' value={input} className='todoinpt' /> */}
-                {/* <button className='todobtn' disabled={input.length === 0}  onClick={handleSubmit}>Add a task</button> */}
                 <Button variant='contained'
                 sx={{
                     width: '30%',
@@ -78,11 +61,11 @@
                         letterSpacing: '2px',
                         transition: '0.5s',
                     },
-                }} onClick={handleSubmit} >Add a task</Button>
+                }} onClick={handleSubmit}>Add a task</Button>
             </Stack>
         </>
-        )
+    )
 
-    }
+}
 
-    export default AddItem;
+export default AddItem;
