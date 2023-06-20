@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCircleCheck, faPen, faTrashAlt,} from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleCheck,
+  faPen,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import API from "../../api";
-import {IconButton,List,ListItemIcon,ListItemText,ListItem,Stack,Typography} from "@mui/material";
+import {
+  IconButton,
+  List,
+  ListItemIcon,
+  ListItemText,
+  ListItem,
+  Stack,
+  Typography,
+  Modal,
+  TextField,
+  Button,
+} from "@mui/material";
 
-const ListItemComponent = ({ todos,setTodos , setInput }) => {
-
-    const updateTask = async (id) => {
-        const todo = todos.find((todo) => todo._id === id);
-        const title = todo.title
-        const response = await API.put(`/api/tasks/update/${id}`, title );
-        console.log(response.data);
-        const updateTodo = {...todo, title: response.data.title}
-        const updateTodos = todos.map((todo) => todo._id === id ? updateTodo : todo)
-        setTodos(updateTodos);
-        setInput(response.data.title)
-    };
+const ListItemComponent = ({ todos, setTodos, input, setInput }) => {
+  const [open, setOpen] = useState(false);
+  const [updatingTodoId, setUpdatingTodoId] = useState(null);
 
   const removeTodo = async (id) => {
     await API.delete(`/api/tasks/delete/${id}`);
@@ -39,68 +45,161 @@ const ListItemComponent = ({ todos,setTodos , setInput }) => {
     );
   };
 
+  const openUpdateModal = (id) => {
+    const todo = todos.find((todo) => todo._id === id);
+    setInput(todo.title);
+    setUpdatingTodoId(id);
+    setOpen(true);
+  };
+
+  const updateTask = () => {
+    if (!updatingTodoId) return;
+    const todo = todos.find((todo) => todo._id === updatingTodoId);
+    console.log(todo.title);
+    const newTitle = input;
+    API.put(`/api/tasks/update/${updatingTodoId}`, { title: newTitle }).then(
+      (response) => {
+        console.log(response.data.title);
+        const updatedTodos = todos.map((todo) =>
+          todo._id === updatingTodoId
+            ? { ...todo, title: response.data.title }
+            : todo
+        );
+        setTodos(updatedTodos);
+        setInput(response.data.title);
+        setOpen(false);
+      }
+    );
+  };
+
   return (
-    <Stack>
-      <List style={{ width: "35rem", padding: "5px 0" }}>
-        {todos.map((todo) => (
-          <ListItem
-            key={todo._id}
-            style={{
-              backgroundColor: "var(--color-dark)",
-              margin: "8px 0",
-              padding: "10px",
-              borderRadius: 10,
+    <>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        sx={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            backgroundColor: "var(--color-darkest)",
+            padding: "16px",
+            borderRadius: "8px",
+            width: "630px",
+            height: "120px",
+          }}
+        >
+          <TextField
+            value={input}
+            id="outlined-basic"
+            label="Update your task"
+            color="success"
+            variant="outlined" // onKeyPress={handleKeypress}
+            onChange={(e) => {
+              setInput(e.target.value);
             }}
+            sx={{
+              borderTopLeftRadius: 15,
+              borderBottomLeftRadius: 15,
+              color: "#fff",
+              width: "100%",
+            }}
+            InputProps={{
+              style: { color: "#fff", fontSize: "16px" },
+              classes: {
+                root: "success-root",
+                focused: "success-focused",
+                notchedOutline: "success-notchedOutline",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: "#DAD9D9",
+                fontSize: "16px",
+              },
+            }}
+          />
+
+          <Button
+            variant="contained"
+            sx={{
+              width: "30%",
+              height: "50px",
+              margin: "2px",
+              backgroundColor: "#02943a",
+              "&:hover": { backgroundColor: "#35af64" },
+            }}
+            onClick={updateTask}
           >
-            <IconButton onClick={() => toggleComplete(todo._id)}>
-              <FontAwesomeIcon
-                icon={faCircleCheck}
-                style={{
-                  color: "#02943a",
-                  fontSize: "16px",
-                }}
-              />
-            </IconButton>
-            <ListItemText
-              primary={
-                <Typography
-                  variant="body1"
+            Update a task
+          </Button>
+        </div>
+      </Modal>
+      <Stack>
+        <List style={{ width: "35rem", padding: "5px 0" }}>
+          {todos.map((todo) => (
+            <ListItem
+              key={todo._id}
+              style={{
+                backgroundColor: "var(--color-dark)",
+                margin: "8px 0",
+                padding: "10px",
+                borderRadius: 10,
+              }}
+            >
+              <IconButton onClick={() => toggleComplete(todo._id)}>
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
                   style={{
-                    textDecoration: todo.completed ? "line-through" : "none",
-                    color: todo.completed ? "gray" : "white",
+                    color: "#02943a",
+                    fontSize: "16px",
                   }}
-                >
-                  {todo.title}
-                </Typography>
-              }
-            />
-            <ListItemIcon></ListItemIcon>
-            {!todo.completed && (
-              <>
-                <IconButton onClick={() => updateTask(todo._id)}>
-                  <FontAwesomeIcon
-                    icon={faPen}
+                />
+              </IconButton>
+              <ListItemText
+                primary={
+                  <Typography
+                    variant="body1"
                     style={{
-                      color: "#02943a",
-                      fontSize: "18px",
+                      textDecoration: todo.completed ? "line-through" : "none",
+                      color: todo.completed ? "gray" : "white",
                     }}
-                  />
-                </IconButton>
-              </>
-            )}
-            <IconButton onClick={() => removeTodo(todo._id)}>
-              <FontAwesomeIcon
-                icon={faTrashAlt}
-                style={{
-                  color: "#F63E3E",
-                  fontSize: "18px",
-                }}
+                  >
+                    {todo.title}
+                  </Typography>
+                }
               />
-            </IconButton>
-          </ListItem>
-        ))}
-      </List>
-    </Stack>
+              <ListItemIcon></ListItemIcon>
+              {!todo.completed && (
+                <>
+                  <IconButton onClick={() => openUpdateModal(todo._id)}>
+                    <FontAwesomeIcon
+                      icon={faPen}
+                      style={{
+                        color: "#02943a",
+                        fontSize: "18px",
+                      }}
+                    />
+                  </IconButton>
+                </>
+              )}
+              <IconButton onClick={() => removeTodo(todo._id)}>
+                <FontAwesomeIcon
+                  icon={faTrashAlt}
+                  style={{
+                    color: "#F63E3E",
+                    fontSize: "18px",
+                  }}
+                />
+              </IconButton>
+            </ListItem>
+          ))}
+        </List>
+      </Stack>
+    </>
   );
 };
 

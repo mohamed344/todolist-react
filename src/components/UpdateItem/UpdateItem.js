@@ -1,31 +1,18 @@
 import React from 'react'
-import {Button,TextField, Stack} from '@mui/material'
+import {Button, Modal, TextField} from '@mui/material'
 
-const UpdateItem = ({input, setInput, setTodos}) => {
-
+const UpdateItem = ({ open, setOpen,input, setInput, updateTask}) => {
 
 return (
     <>
-        <Stack spacing={2} direction={'row'}>
-            <TextField
-                value={input}
-                id="outlined-basic"
-                label="Enter your task"
-                color='success'
-                variant="outlined"
-                // onKeyPress={handleKeypress}
+    
+  
+
+        {/* <Stack spacing={2} direction={'row'}>
+            <TextField value={input} id="outlined-basic" label="Enter your task" color='success' variant="outlined" // onKeyPress={handleKeypress}
                 onChange={(e) => {setInput(e.target.value)}}
-                sx={{
-                    borderTopLeftRadius: 15,
-                    borderBottomLeftRadius: 15,
-                    color: '#fff',
-                    width: '70%',
-                }}
-                InputProps={{
-                    style: {
-                        color: '#fff',
-                        fontSize: '16px',
-                    },
+                sx={{ borderTopLeftRadius: 15, borderBottomLeftRadius: 15, color: '#fff',width: '70%'}}
+                InputProps={{ style: { color: '#fff',fontSize: '16px',},
                     classes: {
                         root: 'success-root',
                         focused: 'success-focused',
@@ -48,11 +35,10 @@ return (
                     letterSpacing: '2px',
                     transition: '0.5s',
                 },
-            }} >Update a task</Button>
-        </Stack>
+            }} onClick={updateTask} >Update a task</Button>
+        </Stack> */}
     </>
 )
-
 }
 
 export default UpdateItem;

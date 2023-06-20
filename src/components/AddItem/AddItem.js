@@ -1,16 +1,9 @@
-    import React from 'react'
-    import './AddItem.css'
-    import API from '../../api'
-    import {Button,TextField, Stack} from '@mui/material'
+import React from 'react'
+import './AddItem.css'
+import {Button,TextField, Stack} from '@mui/material'
 
-const AddItem = ({input, setInput}) => {
+const AddItem = ({input, setInput, handleSubmit}) => {
 
-    const handleSubmit = () => {
-        API.post('/api/tasks/create', {title: input}).then((response) => {
-            console.log(response.data);
-            setInput('');
-        })
-    };
     const handleKeypress = (e) => {
         if(e.key === 'Enter'){
             handleSubmit();
